@@ -1,9 +1,4 @@
 import os
-import string
-
-VALID_SYMBOLS = string.ascii_letters + string.digits
-SYMBOLS_LENGTH = 6
-USER_INPUT_LIMIT = 16
 
 
 class Config(object):
