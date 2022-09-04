@@ -4,7 +4,7 @@ from random import choice
 from flask import url_for
 
 from . import db
-from settings import SYMBOLS_LENGTH, USER_INPUT_LIMIT, VALID_SYMBOLS
+from .constants import SYMBOLS_LENGTH, USER_INPUT_LIMIT, VALID_SYMBOLS
 
 
 class URL_map(db.Model):
@@ -17,7 +17,7 @@ class URL_map(db.Model):
         return dict(
             url=self.original,
             short_link=url_for(
-                'short_link_view', id=self.short, _external=True
+                'short_link_url', short_id=self.short, _external=True
             )
         )
 
@@ -26,7 +26,9 @@ class URL_map(db.Model):
         setattr(self, 'short', data['custom_id'])
 
     def is_short_link_exists(self, custom_id):
-        return bool(self.query.filter_by(short=custom_id).first())
+        return bool(
+            self.query.filter_by(short=custom_id).first()
+        )
 
     def get_unique_short_id(self):
         result_short_id = ''
@@ -37,10 +39,10 @@ class URL_map(db.Model):
             return result_short_id
         return self.get_unique_short_id()
 
-    def is_valid_short_link(self, short_link):
-        if len(short_link) > USER_INPUT_LIMIT:
+    def is_valid_short_id(self, short_id):
+        if len(short_id) > USER_INPUT_LIMIT:
             return False
-        for value in short_link:
+        for value in short_id:
             if value not in VALID_SYMBOLS:
                 return False
         return True
