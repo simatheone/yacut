@@ -133,4 +133,4 @@ dmypy.json
 /copies
 
 # Static files
-/static
+static/
