@@ -131,3 +131,6 @@ dmypy.json
 
 # copies of initial project
 /copies
+
+# Static files
+/static
